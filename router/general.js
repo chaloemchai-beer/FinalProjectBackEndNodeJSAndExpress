@@ -2,12 +2,21 @@ const express = require("express");
 let books = require("./booksdb.js");
 let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
-const axios = require("axios");
 const public_users = express.Router();
+
+public_users.post("/:isbs", (req, res) => {
+  const isbs = req.params.isbs;
+  if (req.query.review == null) {
+    books[isbs].reviews = "Review to delete";
+  } else {
+    books[isbs].reviews = req.query.review;
+  }
+
+  res.send(books[isbs].reviews);
+});
 
 public_users.post("/register", (req, res) => {
   //Write your code here
-  const { username, password} = req.body;
 });
 
 // Get the book list available in the shop
